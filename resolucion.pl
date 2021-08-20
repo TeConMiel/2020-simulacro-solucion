@@ -47,17 +47,14 @@ descarga(leoOoOok, powerslave).
 
 %-------[PUNTO 1]-------%
 
-titulo(pelicula(Titulo, Genero, Anio), Titulo) :-
-    contenido(_, _, _, pelicula(Titulo, Genero, Anio)).
+titulo(Contenido, Titulo) :-
+    contenido(_,_,_, Contenido),
+    mismoTitulo(Contenido,Titulo).
 
-titulo(serie(Titulo, Generos), Titulo) :-
-    contenido(_, _, _, serie(Titulo, Generos)).
-
-titulo(musica(Titulo, Genero, Creador), Titulo) :-
-    contenido(_, _, _, musica(Titulo, Genero, Creador)).
-
-titulo(libro(Titulo, Autor, Edicion), Titulo) :-
-    contenido(_, _, _, libro(Titulo, Autor, Edicion)).
+mismoTitulo(libro(Titulo, _, _), Titulo).
+mismoTitulo(serie(Titulo,_), Titulo).
+mismoTitulo(pelicula(Titulo,_,_), Titulo).
+mismoTitulo(musica(Titulo,_,_), Titulo).
 
 descargaContenido(Usuario, Contenido) :-
     titulo(Contenido, Titulo),
@@ -133,5 +130,5 @@ servidorMasLiviano(Empresa, Servidor) :-
 
 balancearServidor(Empresa, ServidorMuchaCarga, ServidorLiviano) :-
     tieneMuchaCarga(Empresa, ServidorMuchaCarga),
-    servidorMasLiviano(Empresa, ServidorLiviano).
+    servidorMasLiviano(Empresa, ServidorLiviano),
     ServidorMuchaCarga \= ServidorLiviano.

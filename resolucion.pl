@@ -115,3 +115,23 @@ mismoTipo(pelicula(_,_,_), pelicula(_,_,_)).
 mismoTipo(serie(_,_), serie(_,_)).
 mismoTipo(musica(_,_,_), musica(_,_,_)).
 mismoTipo(libro(_,_,_), libro(_,_,_)).
+
+%-------[PUNTO 7]-------%
+
+cargaServidor(Empresa,Servidor, Carga) :-
+    contenido(Empresa,Servidor,_,_),
+    findall(Peso, contenido(Empresa,Servidor, Peso, _), PesosGB),
+    sumlist(PesosGB, Carga).
+
+tieneMuchaCarga(Empresa, Servidor) :-
+    cargaServidor(Empresa,Servidor,Carga),
+    Carga > 1000.
+
+servidorMasLiviano(Empresa, Servidor) :-
+    cargaServidor(Empresa,Servidor, Carga),
+    forall((cargaServidor(Empresa,OtroServidor, CargaOtroServidor), Servidor \= OtroServidor) , CargaOtroServidor > Carga ).
+
+balancearServidor(Empresa, ServidorMuchaCarga, ServidorLiviano) :-
+    tieneMuchaCarga(Empresa, ServidorMuchaCarga),
+    servidorMasLiviano(Empresa, ServidorLiviano).
+    ServidorMuchaCarga \= ServidorLiviano.

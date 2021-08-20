@@ -79,4 +79,11 @@ cinefilo(Usuario) :-
 contenidoAudiovisual(pelicula(_,_,_)).
 contenidoAudiovisual(serie(_,_)).
 
+%-------[PUNTO 4]-------%
 
+totalDescargado(Usuario, PesoTotal) :-
+    descarga(Usuario, _),
+    findall(Peso, (descargaContenido(Usuario,Contenido), contenido(_,_, Peso, Contenido) ), PesosGB),
+    sumlist(PesosGB, PesoTotal).
+
+%-------[PUNTO 5]-------%

@@ -62,3 +62,21 @@ descargaContenido(Usuario, Contenido) :-
     titulo(Contenido, Titulo),
     descarga(Usuario, Titulo).
     
+%-------[PUNTO 2]-------%
+
+contenidoPopular(Contenido) :-
+    contenido(_,_,_,Contenido),
+    findall(Usuario, descargaContenido(Usuario, Contenido), ListaUsuarios),
+    length(ListaUsuarios, CantidadDescargas),
+    CantidadDescargas > 10.
+
+%-------[PUNTO 3]-------%
+
+cinefilo(Usuario) :-
+    descarga(Usuario, _),
+    forall(descargaContenido(Usuario, Contenido), contenidoAudiovisual(Contenido)).
+
+contenidoAudiovisual(pelicula(_,_,_)).
+contenidoAudiovisual(serie(_,_)).
+
+

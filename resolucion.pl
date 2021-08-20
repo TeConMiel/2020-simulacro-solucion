@@ -44,6 +44,7 @@ descarga(leoOoOok, powerslave).
 
 
 
+
 %-------[PUNTO 1]-------%
 
 titulo(pelicula(Titulo, Genero, Anio), Titulo) :-
@@ -87,3 +88,17 @@ totalDescargado(Usuario, PesoTotal) :-
     sumlist(PesosGB, PesoTotal).
 
 %-------[PUNTO 5]-------%
+
+usuarioCool(Usuario) :-
+    descarga(Usuario, _),
+    forall(descargaContenido(Usuario,Contenido), contenidoCool(Contenido)).
+
+contenidoCool(musica(_,kpop,_)).
+contenidoCool(musica(_,hardRock,_)).
+
+contenidoCool(serie(_,Generos)) :-
+    length(Generos, NumeroDeGeneros),
+    NumeroDeGeneros > 1.
+
+contenidoCool(pelicula(_,_,Anio)) :-
+    Anio < 2010.

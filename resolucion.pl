@@ -102,3 +102,16 @@ contenidoCool(serie(_,Generos)) :-
 
 contenidoCool(pelicula(_,_,Anio)) :-
     Anio < 2010.
+
+%-------[PUNTO 6]-------%
+
+empresaHeterogenea(Empresa) :-
+    contenido(Empresa, _, _, Contenido),
+    contenido(Empresa, _, _, OtroContenido),
+    Contenido \= OtroContenido,
+    not(mismoTipo(Contenido, OtroContenido)). %Existen dos contenidos distintos que NO sean del mismo tipo.
+
+mismoTipo(pelicula(_,_,_), pelicula(_,_,_)).
+mismoTipo(serie(_,_), serie(_,_)).
+mismoTipo(musica(_,_,_), musica(_,_,_)).
+mismoTipo(libro(_,_,_), libro(_,_,_)).
